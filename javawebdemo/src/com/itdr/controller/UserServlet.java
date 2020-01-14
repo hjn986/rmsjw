@@ -15,43 +15,38 @@ import java.io.IOException;
 @WebServlet(name = "/user/*")
 public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    doGet(request,response);
+        doGet(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        String requestURI = request.getRequestURI();
+        String[] split = requestURI.split("/");
+        //管理员登录
+        switch (split[split.length - 1]) {
+            case "login":
+                login(request, response);
+                break;
+            case "getmsg":
+                getMsg(request, response);
+                break;
+        }
+
     }
 
     private UserService userService = new UserServiceImpl();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        String requestURI = request.getRequestURI();
-        String [] split = requestURI.split("/");
-        //管理员登录
-        if ("login".equals(split[split.length - 1])){
-            login(request,response);
-        }
-        if ("getmsg".equals(split[split.length - 1])){
-            getMsg(request,response);
-        }
-        switch (split[split.length - 1]){
-            case "login":
-                login(request,response);
-                break;
-            case "getmsg":
-                getMsg(request,response);
-        }
-
-    }
-
     //管理员登录
-    private void login(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        ResponseCode<Users> login = userService.login(username,password);
+        ResponseCode<Users> login = userService.login(username, password);
         response.getWriter().write(login.toString());
 
     }
-    
+
     //获取管理员信息
-    private void getMsg(HttpServletRequest request,HttpServletResponse response){
+    private void getMsg(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("获取管理员信息");
     }
     //修改管理员信息
