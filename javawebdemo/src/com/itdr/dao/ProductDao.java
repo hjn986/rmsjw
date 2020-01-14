@@ -1,7 +1,6 @@
 package com.itdr.dao;
 
 import com.itdr.pojo.Product;
-import com.itdr.pojo.Users;
 import com.itdr.utils.C3P0Util;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -10,17 +9,17 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDao {
-    public Users selectByUserNameAndPassword(String username,String password){
+public class ProductDao {
+    public List<Product> selectAll() {
         QueryRunner qr = new QueryRunner(C3P0Util.getCom());
 
-        String sql = "select id,username,pssword,type,create_time,update_time from neuedu_user where username = ? and password = ?";
-        Users u = null;
+        String sql = "select id,pname,price,pnum,type,create_time,update_time from neuedu_product";
+        List<Product> query = null;
         try {
-            u = qr.query(sql,new BeanHandler<Users>(Users.class));
+            query = qr.query(sql,new BeanListHandler<Product>(Product.class));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return u;
+        return query;
     }
 }

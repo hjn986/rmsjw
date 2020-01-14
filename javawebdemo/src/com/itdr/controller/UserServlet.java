@@ -2,7 +2,7 @@ package com.itdr.controller;
 
 import com.itdr.common.ResponseCode;
 import com.itdr.pojo.Users;
-import com.itdr.service.impl.UserService;
+import com.itdr.service.UserService;
 import com.itdr.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -36,13 +36,13 @@ public class UserServlet extends HttpServlet {
     private UserService userService = new UserServiceImpl();
 
     //管理员登录
-    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void login(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         ResponseCode<Users> login = userService.login(username, password);
-        response.getWriter().write(login.toString());
-
+        request.setAttribute("user",login);
+        request.getRequestDispatcher("home.jsp").forward(request,response);
     }
 
     //获取管理员信息

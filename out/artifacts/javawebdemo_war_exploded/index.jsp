@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>管理员登录</title>
   </head>
   <body>
-  $END$
+ <form action="/user/login" method="post">
+   <input type="text" placeholder="账户" name="username">
+   <input type="password" placeholder="密码" name="password">
+   <input type="submit" value="登录">
+ </form>
   </body>
 </html>
