@@ -10,13 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "/user/*")
+@WebServlet( "/backed/user/*")
 public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
+    private UserService userService = new UserServiceImpl();
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         String requestURI = request.getRequestURI();
@@ -33,7 +37,6 @@ public class UserServlet extends HttpServlet {
 
     }
 
-    private UserService userService = new UserServiceImpl();
 
     //管理员登录
     private void login(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
@@ -41,8 +44,13 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         ResponseCode<Users> login = userService.login(username, password);
-        request.setAttribute("user",login);
-        request.getRequestDispatcher("home.jsp").forward(request,response);
+
+        //登录成功，保存用户信息
+        HttpSession session = request.getSession();
+        Users data = login.getData();
+        session.setAttribute("us",data);
+
+        request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
     }
 
     //获取管理员信息

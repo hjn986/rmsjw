@@ -14,10 +14,10 @@ public class UserDao {
     public Users selectByUserNameAndPassword(String username,String password){
         QueryRunner qr = new QueryRunner(C3P0Util.getCom());
 
-        String sql = "select id,username,pssword,type,create_time,update_time from neuedu_user where username = ? and password = ?";
+        String sql = "select id,username,password,type,create_time,update_time from neuedu_user where username = ? and password = ?";
         Users u = null;
         try {
-            u = qr.query(sql,new BeanHandler<Users>(Users.class));
+            u = qr.query(sql,new BeanHandler<Users>(Users.class),username,password);
         } catch (SQLException e) {
             e.printStackTrace();
         }

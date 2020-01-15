@@ -5,7 +5,7 @@
   Time: 20:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="errorpage.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -15,19 +15,22 @@
             width:30%;
             height: 100%;
             float:left;
-            background-color: blue;
+            background-color: wheat;
         }
-        #left{
+        #right{
             width:70%;
             float:right;
-            background-color: blueviolet;
+            background-color: antiquewhite;
         }
     </style>
 </head>
 <body>
 <div id="left">
+    <p>
+        <a href="/backed/index/home">回到首页</a>
+    </p>
     <h1>欢迎${user.data.username}登录管理后台</h1>
-    <a href="/product/getall">获取所有商品数据</a>
+    <a href="/backed/product/getall">获取所有商品数据</a>
 </div>
 <div id="right">
     <c:if test="${not empty plist.data}">
@@ -48,11 +51,11 @@
                     <td>${p.pname}</td>
                     <td>${p.price}</td>
                     <td>${p.pnum}</td>
-                    <td>${p.type}</td>
+                    <td class="pt">${p.type}</td>
                     <td>${p.create_time}</td>
                     <td>${p.update_time}</td>
                     <td>
-                        <button>下架</button>
+                        <button onclick="toType(this)">下架</button>
                         <button>修改</button>
                     </td>
                 </tr>
@@ -65,7 +68,27 @@
     没有更多的商品
     </c:if>
 
-
 </div>
 </body>
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.js"></script>
+<script>
+ function toType(but) {
+     var id2 = $(but).parent().parent().children().first().text();
+     $.get(
+         "/backed/product/totype",
+         {id:id2},
+         function (data) {
+             var num = Number(data);
+             if (data>0) {
+                  $(but).parent().parent().children().first().nextAll(".pt").text(1);
+
+
+             }
+
+         }
+     )
+
+
+ }
+</script>
 </html>

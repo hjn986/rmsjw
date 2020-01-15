@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
             Users users = ud.selectByUserNameAndPassword(username,password);
             //返回值null,说明用户不存在，登录失败
             if (users == null){
-                return ResponseCode.toDefeated("用户不存在");
+                return ResponseCode.toDefeated("用户不存在!");
             }
             //成功返回数据
             return ResponseCode.toSuccess(users);
