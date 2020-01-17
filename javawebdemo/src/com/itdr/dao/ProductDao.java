@@ -49,4 +49,18 @@ public class ProductDao {
         }
         return m;
     }
+
+    public List<Product> selectByPname(String key) {
+        QueryRunner qr = new QueryRunner(C3P0Util.getCom());
+
+
+        String sql = "select id,pname,price,pnum,type,create_time,update_time from neuedu_product where id = ?";
+        List<Product> query = null;
+        try {
+            query = qr.query(sql,new BeanListHandler<Product>(Product.class),key);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return query;
+    }
 }

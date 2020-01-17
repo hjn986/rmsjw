@@ -10,30 +10,55 @@
 <head>
     <title>后台首页</title>
     <style>
-        #left{
-            width:30%;
-            height: 100%;
-            float:left;
-            background-color: wheat;
-        }
-        #right{
-            width:70%;
-            float:right;
-            background-color: antiquewhite;
-        }
+   #header {
+       background-color:black;
+       color:white;
+       text-align:center;
+       padding:5px;
+   }
+   #nav {
+       line-height:30px;
+       background-color:wheat;
+       height:600px;
+       width:200px;
+       float:left;
+       padding:5px;
+   }
+   #nav a{
+       text-decoration: none;
+   }
+   #section {
+       width:350px;
+       float:left;
+       padding:10px;
+   }
+   #section img{
+       width:600px;
+       height:500px;
+   }
+   #footer {
+       background-color:black;
+       color:white;
+       clear:both;
+       text-align:center;
+       padding:5px;
+   }
+
     </style>
 </head>
 <body>
 
-<div id="left">
-    <p>
-        <a href="/backed/index/home">回到首页</a>
-    </p>
+<div id="header">
     <h1>欢迎${us.username}登录管理后台</h1>
+</div>
+<div id="nav">
     <a href="/backed/product/getall">获取所有商品数据</a>
 </div>
-<div id="right">
+<div id="section">
 
+</div>
+<div id="footer">
+    欢迎
 </div>
 </body>
 </html>

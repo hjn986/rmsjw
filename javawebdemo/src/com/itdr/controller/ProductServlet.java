@@ -32,6 +32,9 @@ public class ProductServlet extends HttpServlet {
             case "totype":
                 toType(request, response);
                 break;
+            case "fuzzysearch":
+                fuzzySearch(request, response);
+                break;
 
         }
 
@@ -49,6 +52,15 @@ public class ProductServlet extends HttpServlet {
         ResponseCode allProduct = productService.toType(id);
         //把数据转换成json格式返回
         response.getWriter().write(allProduct.getData().toString());
+
+    }
+
+    //商品下架
+    private void fuzzySearch(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String key = request.getParameter("key");
+        ResponseCode allProduct = productService.fuzzySearch(key);
+        request.setAttribute("plist",allProduct);
+        request.getRequestDispatcher("/WEB-INF/plist.jsp").forward(request,response);
 
     }
 

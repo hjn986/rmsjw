@@ -4,6 +4,7 @@ import com.itdr.common.ResponseCode;
 import com.itdr.dao.ProductDao;
 import com.itdr.pojo.Product;
 import com.itdr.service.ProductService;
+import com.mysql.jdbc.StringUtils;
 
 import java.util.List;
 
@@ -34,5 +35,14 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return ResponseCode.toSuccess(i2);
+    }
+    //商品模糊搜索
+    @Override
+    public ResponseCode fuzzySearch(String key) {
+        if (StringUtils.isNullOrEmpty(key)){
+            return ResponseCode.toDefeated("非法参数");
+        }
+        List<Product> li = productDao.selectByPname(key);
+        return ResponseCode.toSuccess(li);
     }
 }
