@@ -14,7 +14,7 @@
         #a{
             width:70px;
             height:30px;
-            background-color: coral;
+            background-color: #6B74F3;
             border-radius: 4px;
         }
         #a p a{
@@ -24,21 +24,26 @@
         #b{
             width:100%;
             float:right;
-            background-color: antiquewhite;
+            background-color: #CA78AF;
         }
     </style>
 </head>
 <body>
 <div id="a">
-    <form >
+
         <p>
             <a href="/backed/index/home">回到首页</a>
         </p>
-    </form>
+
 
 
 </div>
+
 <div id="b">
+    <form action="/backed/product/fuzzysearch">
+        <input type="text" placeholder="查询的商品名称" name="key">
+        <input type="submit" value="查询">
+    </form>
     <c:if test="${not empty plist.data}">
         <table>
             <tr>

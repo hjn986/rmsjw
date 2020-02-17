@@ -11,14 +11,14 @@
     <title>后台首页</title>
     <style>
    #header {
-       background-color:black;
+       background-color:#CA78AF;
        color:white;
        text-align:center;
        padding:5px;
    }
    #nav {
        line-height:30px;
-       background-color:wheat;
+       background-color:#6B74F3;
        height:600px;
        width:200px;
        float:left;
@@ -37,7 +37,7 @@
        height:500px;
    }
    #footer {
-       background-color:black;
+       background-color:#CA78AF;
        color:white;
        clear:both;
        text-align:center;
@@ -52,7 +52,20 @@
     <h1>欢迎${us.username}登录管理后台</h1>
 </div>
 <div id="nav">
-    <a href="/backed/product/getall">获取所有商品数据</a>
+    <ul>
+        <li>
+            <a href="/backed/user/getmsg">管理员列表</a>
+        </li>
+        <li>
+            <a href="/backed/product/getall">商品列表</a>
+        </li>
+        <li>
+            <a href="/backed/index/addproduct">新增商品</a>
+        </li>
+        <li>
+            <a href="/backed/index/deleteproduct">删除商品</a>
+        </li>
+    </ul>
 </div>
 <div id="section">
 

@@ -21,9 +21,22 @@ public class ConfigServlet extends HttpServlet {
             case "home":
                 home(request, response);
                 break;
+            case "addproduct":
+                addProduct(request, response);
+                break;
+            case "deleteproduct":
+                deleteOne(request, response);
+                break;
         }
     }
     private void home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+    }
+
+    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/addproduct.jsp").forward(request,response);
+    }
+    private void deleteOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/deleteproduct.jsp").forward(request,response);
     }
 }

@@ -11,28 +11,39 @@
 <head>
     <title>商品列表</title>
     <style>
-        #left{
-            width:30%;
-            height: 100%;
-            float:left;
-            background-color: wheat;
+        #a{
+            width:70px;
+            height:30px;
+            background-color: #6B74F3;
+            border-radius: 4px;
         }
-        #right{
-            width:70%;
+        #a p a{
+            text-decoration: none;
+        }
+
+        #b{
+            width:100%;
             float:right;
-            background-color: antiquewhite;
+            background-color: #CA78AF;
         }
     </style>
 </head>
 <body>
-<div id="left">
-    <p>
-        <a href="/backed/index/home">回到首页</a>
-    </p>
-    <h1>欢迎${user.data.username}登录管理后台</h1>
-    <a href="/backed/product/getall">获取所有商品数据</a>
+<div id="a">
+
+        <p>
+            <a href="/backed/index/home">回到首页</a>
+        </p>
+
+
+
 </div>
-<div id="right">
+
+<div id="b">
+    <form action="/backed/product/fuzzysearch">
+        <input type="text" placeholder="查询的商品名称" name="key">
+        <input type="submit" value="查询">
+    </form>
     <c:if test="${not empty plist.data}">
         <table>
             <tr>

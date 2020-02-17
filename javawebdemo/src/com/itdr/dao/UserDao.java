@@ -23,4 +23,40 @@ public class UserDao {
         }
         return u;
     }
+    //获取管理员信息
+    public Users selectAllInformation() {
+        QueryRunner qr = new QueryRunner(C3P0Util.getCom());
+        String sql = "select * from neuedu_user where type = 1";
+        Users query = null;
+        try {
+            query= qr.query(sql, new BeanHandler<Users>(Users.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return query;
+    }
+    //修改管理员信息
+    public int UpdatePassword(String password) {
+        QueryRunner qr = new QueryRunner(C3P0Util.getCom());
+        String sql = "update neuedu_user set password = ?,update_time=now() where type=1 ";
+        int update=0;
+        try {
+            update = qr.update(sql, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return update;
+    }
+    //查看用户信息
+    public List<Users> selectUsers(){
+        QueryRunner qr = new QueryRunner(C3P0Util.getCom());
+        String sql = "Select * from  bishe_user where type=0";
+        List<Users> query = null;
+        try {
+            query= qr.query(sql, new BeanListHandler<Users>(Users.class));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return query;
+    }
 }

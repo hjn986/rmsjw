@@ -54,9 +54,16 @@ public class UserServlet extends HttpServlet {
     }
 
     //获取管理员信息
-    private void getMsg(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("获取管理员信息");
+    private void getMsg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResponseCode selectall = userService.selectAll();
+        request.setAttribute("ad",selectall);
+        request.getRequestDispatcher("/WEB-INF/administrator.jsp").forward(request,response);
     }
     //修改管理员信息
+    public void updatePsd(HttpServletRequest request, HttpServletResponse response){
+        String password = request.getParameter("password");
+        ResponseCode updatepassword = userService.updatePassword(password);
+
+    }
     //禁用管理员
 }

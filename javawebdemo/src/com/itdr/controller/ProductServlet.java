@@ -35,6 +35,12 @@ public class ProductServlet extends HttpServlet {
             case "fuzzysearch":
                 fuzzySearch(request, response);
                 break;
+            case "addone":
+                addOne(request, response);
+                break;
+            case "deleteone":
+                deleteOne(request, response);
+                break;
 
         }
 
@@ -55,13 +61,32 @@ public class ProductServlet extends HttpServlet {
 
     }
 
-    //商品下架
+    //根据商品名称模糊搜索
     private void fuzzySearch(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String key = request.getParameter("key");
         ResponseCode allProduct = productService.fuzzySearch(key);
         request.setAttribute("plist",allProduct);
         request.getRequestDispatcher("/WEB-INF/plist.jsp").forward(request,response);
 
+    }
+
+    //新增商品
+    private void addOne(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String pname = request.getParameter("pname");
+        String price = request.getParameter("price");
+        String pnum = request.getParameter("pnum");
+
+        ResponseCode allProduct = productService.addOne(pname,pnum,price);
+
+        request.getRequestDispatcher("/WEB-INF/plist.jsp").forward(request,response);
+    }
+    //删除商品
+    private void deleteOne(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+
+        String pname = request.getParameter("pname");
+
+        ResponseCode responseCode = productService.deleteOne(pname);
+        request.getRequestDispatcher("/WEB-INF/plist.jsp").forward(request, response);
     }
 
 

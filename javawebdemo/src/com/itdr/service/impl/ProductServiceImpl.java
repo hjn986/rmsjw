@@ -42,7 +42,37 @@ public class ProductServiceImpl implements ProductService {
         if (StringUtils.isNullOrEmpty(key)){
             return ResponseCode.toDefeated("非法参数");
         }
-        List<Product> li = productDao.selectByPname(key);
+        String keyWord = "%"+key+"%";
+        List<Product> li = productDao.selectByPname(keyWord);
         return ResponseCode.toSuccess(li);
+    }
+    //新增商品
+    @Override
+    public ResponseCode addOne(String pname, String pnum, String price) {
+        //参数非空判断
+       //根据商品名称查询商品是否存在
+        Product p = productDao.selectOneByPname(pname);
+        if (p != null){
+            return ResponseCode.toDefeated("商品已存在");
+        }
+        Double d = Double.parseDouble(price);
+        Integer m = Integer.parseInt(pnum);
+       //当商品不存在的时候再新增
+        int i = productDao.insertOne(pname,d,m);
+        return ResponseCode.toSuccess(i);
+    }
+
+    //删除商品
+    @Override
+    public ResponseCode deleteOne(String pname) {
+        if(pname == null || "".equals(pname)){
+            return ResponseCode.toDefeated("非法参数！");
+        }
+        int i = productDao.deleteOne(pname);
+        if(i<0){
+            return ResponseCode.toDefeated("商品删除失败！");
+        }
+        return ResponseCode.toSuccess(i);
+
     }
 }
